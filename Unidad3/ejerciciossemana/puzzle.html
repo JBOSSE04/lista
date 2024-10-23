@@ -1,0 +1,182 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #board {
+            margin: 20px auto;
+            display: inline-block;
+        }
+        #board div {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            line-height: 50px;
+            font-size: 20px;
+        }
+        .empty {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>Puzzle Game</h1>
+    <div id="board"></div>
+    <button onclick="puzzleGame.move('up')">Move Up</button>
+    <button onclick="puzzleGame.move('down')">Move Down</button>
+    <button onclick="puzzleGame.move('left')">Move Left</button>
+    <button onclick="puzzleGame.move('right')">Move Right</button>
+CUANDO HA DICHO QUE LO HA HECHO TODO EN UNA CLASE Y HA METIDO FUNCIONES 
+DIGO Y ES LO MISMO QUE ME HA SOLTADO CHT
+    <script>
+        class Puzzle {
+            constructor(size) {
+                this.size = size;
+                this.board = this.generateBoard();
+                this.emptyTile = { row: size - 1, col: size - 1 };
+                this.moves = 0;
+                this.startTime = Date.now();
+            }
+
+            generateBoard() {
+                let board = [];
+                let number = 1;
+                for (let i = 0; i < this.size; i++) {
+                    board[i] = [];
+                    for (let j = 0; j < this.size; j++) {
+                        if (number < this.size * this.size) {
+                            board[i][j] = number++;
+                        } else {
+                            board[i][j] = null;
+                        }
+                    }
+                }
+                return this.shuffleBoard(board);
+            }
+
+            shuffleBoard(board) {
+                for (let i = board.length - 1; i > 0; i--) {
+                    for (let j = board[i].length - 1; j > 0; j--) {
+                        const i2 = Math.floor(Math.random() * (i + 1));
+                        const j2 = Math.floor(Math.random() * (j + 1));
+                        [board[i][j], board[i2][j2]] = [board[i2][j2], board[i][j]];
+                    }
+                }
+                return board;
+            }
+
+            move(direction) {
+                const { row, col } = this.emptyTile;
+                let newRow = row;
+                let newCol = col;
+
+                switch (direction) {
+                    case 'up':
+                        newRow--;
+                        break;
+                    case 'down':
+                        newRow++;
+                        break;
+                    case 'left':
+                        newCol--;
+                        break;
+                    case 'right':
+                        newCol++;
+                        break;
+                    default:
+                        console.log('Invalid direction');
+                        return;
+                }
+
+                if (this.isValidMove(newRow, newCol)) {
+                    this.board[row][col] = this.board[newRow][newCol];
+                    this.board[newRow][newCol] = null;
+                    this.emptyTile = { row: newRow, col: newCol };
+                    this.moves++;
+                    this.draw();
+                } else {
+                    console.log('Invalid move');
+                }
+            }
+
+            isValidMove(row, col) {
+                return row >= 0 && row < this.size && col >= 0 && col < this.size;
+            }
+
+            draw() {
+                const boardDiv = document.getElementById('board');
+                boardDiv.innerHTML = '';
+                this.board.forEach(row => {
+                    row.forEach(tile => {
+                        const tileDiv = document.createElement('div');
+                        tileDiv.className = tile === null ? 'empty' : '';
+                        tileDiv.textContent = tile === null ? '' : tile;
+                        boardDiv.appendChild(tileDiv);
+                    });
+                    boardDiv.appendChild(document.createElement('br'));
+                });
+                console.log(Moves, ${this:moves});
+                console.log(Time, ${(Date.now() - this.startTime) / 1000} seconds);
+            }
+        }
+
+        const puzzleGame = new Puzzle(3);
+        puzzleGame.draw();
+    </script>
+</body>
+</html>

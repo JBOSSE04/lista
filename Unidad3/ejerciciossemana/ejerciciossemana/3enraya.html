@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tres en Raya Game</title>
+    <style>
+        /* Estilos para el cuerpo del documento */
+        body {
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+        }
+        /* Estilos para el tablero del juego */
+        #board {
+            margin: 20px auto; 
+            display: inline-block; 
+        }
+        /* Estilos para cada casilla del tablero */
+        #board div {
+            display: inline-block; 
+            width: 50px; 
+            height: 50px; 
+            border: 1px solid #000;  
+            line-height: 50px; 
+            font-size: 20px; 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Tres en Raya Game</h1>
+    <div id="board"></div> 
+
+    <script>
+        // Clase que representa el juego de Tres en Raya
+        class TresEnRaya {
+            constructor() {
+                // Inicializa el tablero como una matriz de 3x3 llena de null
+                this.board = [
+                    [null, null, null],
+                    [null, null, null],
+                    [null, null, null],
+                ];
+                // Establece el jugador actual como 'X'
+                this.currentPlayer = 'X';
+                this.draw(); // Dibuja el tablero inicial
+            }
+
+            // Método para realizar una jugada en la posición (row, col)
+            play(row, col) {
+                // Verifica si la casilla está vacía
+                if (this.board[row][col] === null) {
+                    // Marca la casilla con el símbolo del jugador actual
+                    this.board[row][col] = this.currentPlayer;
+                    // Verifica si el jugador actual ha ganado
+                    if (this.checkWinner(this.currentPlayer)) {
+                        alert(`El jugador ${this.currentPlayer} ha ganado!`); // Muestra un mensaje de victoria
+                        this.resetGame(); // Reinicia el juego
+                    }
+                    // Cambia al siguiente jugador
+                    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+                } else {
+                    // Si la casilla está ocupada, muestra un mensaje
+                    alert('Casilla ocupada. Intenta de nuevo.');
+                }
+                this.draw(); // Dibuja el tablero actualizado
+            }
+
+            // Método para comprobar si el jugador ha ganado
+            checkWinner(player) {
+                // Comprueba filas y columnas
+                for (let i = 0; i < 3; i++) {
+                    if (
+                        (this.board[i][0] === player && this.board[i][1] === player && this.board[i][2] === player) ||
+                        (this.board[0][i] === player && this.board[1][i] === player && this.board[2][i] === player)
+                    ) {
+                        return true; // Se ha encontrado un ganador
+                    }
+                }
+                // Comprueba diagonales
+                if (
+                    (this.board[0][0] === player && this.board[1][1] === player && this.board[2][2] === player) ||
+                    (this.board[0][2] === player && this.board[1][1] === player && this.board[2][0] === player)
+                ) {
+                    return true; // Se ha encontrado un ganador
+                }
+                return false; // No hay ganador
+            }
+
+            // Método para dibujar el tablero en la interfaz de usuario
+            draw() {
+                const boardDiv = document.getElementById('board'); // Obtiene el contenedor del tablero
+                boardDiv.innerHTML = ''; // Limpia el contenido del tablero
+                this.board.forEach((row, rowIndex) => {
+                    row.forEach((cell, colIndex) => {
+                        const tileDiv = document.createElement('div'); // Crea un nuevo div para cada casilla
+                        tileDiv.textContent = cell === null ? '' : cell; // Muestra 'X' o 'O' o vacío si no está ocupada
+                        // Asigna un evento de clic para realizar la jugada
+                        tileDiv.onclick = () => this.play(rowIndex, colIndex); 
+                        boardDiv.appendChild(tileDiv); // Añade la casilla al tablero
+                    });
+                    boardDiv.appendChild(document.createElement('br')); // Añade un salto de línea al final de cada fila
+                });
+            }
+
+            // Método para reiniciar el juego
+            resetGame() {
+                // Reinicia el tablero y el jugador actual
+                this.board = [
+                    [null, null, null],
+                    [null, null, null],
+                    [null, null, null],
+                ];
+                this.currentPlayer = 'X'; // Reinicia al jugador 'X'
+                this.draw(); // Dibuja el tablero reiniciado
+            }
+        }
+
+        // Crea una nueva instancia del juego al cargar la página
+        const tresEnRayaGame = new TresEnRaya();
+    </script>
+</body>
+</html>
