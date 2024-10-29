@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    margin-top: -20px;
+    text-align: center;
+}
+
+.titulos {
+    background-color: rgb(32, 175, 175);
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.a a {
+    background-color: white;
+    text-decoration: none;
+    color: rgb(32, 175, 175);
+    margin: 5px;
+}
+
+.a {
+    margin: 10px;
+}
+
+.cColores {
+    padding-top: 40px;
+    background-color: black;
+    padding-bottom: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.id {
+    color: aquamarine;
+    background-color: rgb(255, 156, 156);
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin: 10px;
+    
+}
+
+#newColors {
+    padding-right: 150px;
+}
