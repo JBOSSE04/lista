@@ -20,21 +20,26 @@
 
 // const btn = document.querySelector("#btn");
 
-window.onload = ()=>
-{
-    //MAIN
-    let btn = document.getElementById("btnCambiar");
-    let btnDeOtroModo = document.getElementsByTagName("button")[0]
-    btn.addEventListener("click", cambiarH1);
-}
+// window.onload = ()=>
+// {
+//     //MAIN
+//     let btn = document.getElementById("btnCambiar");
+//     let btnDeOtroModo = document.getElementsByTagName("button")[0]
+//     btn.addEventListener("click", cambiarH1);
+// }
 
 
-function cambiarH1(e)
-{
-    let cajaTexto = document.getElementById("text");
-    let tituloh1 = document.getElementById("titH1"); 
-    if(cajaTexto.value !=""){
-    tituloh1.innerText = cajaTexto.value;
+// function cambiarH1(e)
+// {
+//     let cajaTexto = document.getElementById("text");
+//     let tituloh1 = document.getElementById("titH1"); 
+//     if(cajaTexto.value !=""){
+//     tituloh1.innerText = cajaTexto.value;
 
-    }
-}
+//     }
+// }
+
+
+//explicacion 05/11/2024
+
+

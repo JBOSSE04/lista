@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Tarjeta de Crédito</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="index.js"></script>
+</head>
+<body>
+  <div class="form-container">
+    <div class="card-preview">
+        <div class="carta">
+            <div class="frente">
+              <img src="tarjeta.png" alt="frente">
+            </div>
+            
+        </div>
+    </div>
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="card-number">Número de tarjeta</label>
+        <input type="text" id="card-number" name="card-number" placeholder="#### #### #### ####" required>
+      </div>
+      <div class="form-group">
+        <label for="card-holder">Titular de la tarjeta</label>
+        <input type="text" id="card-holder" name="card-holder" placeholder="FULL NAME" required>
+      </div>
+      <div class="form-group flex-row">
+        <div class="expiry-date">
+          <label for="expiry-month">Fecha de expiración</label>
+          <div class="expiry-select">
+            <select id="expiry-month" name="expiry-month" required>
+              <option value="">Mes</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+            <select id="expiry-year" name="expiry-year" required>
+              <option value="">Año</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+            </select>
+          </div>
+        </div>
+        <div class="cvv">
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" name="cvv" placeholder="###" required>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Enviar</button>
+    </form>
+  </div>
+</body>
+</html>
