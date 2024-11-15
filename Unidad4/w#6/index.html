@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web con Cookies</title>
+</head>
+<body>
+
+    <h1 id="mensaje">Bienvenido</h1>
+    <div id="configuracion" style="display: none;">
+        <h2>Configuración de Estilo</h2>
+        <label>
+            Color de fondo:
+            <input type="color" id="colorFondo" onchange="actualizarEstilo()">
+        </label><br><br>
+        <label>
+            Color del texto:
+            <input type="color" id="colorTexto" onchange="actualizarEstilo()">
+        </label><br><br>
+        <label>
+            Tamaño de la letra:
+            <input type="number" id="tamanoLetra" min="10" max="50" value="16" onchange="actualizarEstilo()"> px
+        </label><br><br>
+        <button onclick="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
