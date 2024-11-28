@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PONG</title>
+    <script src="javascript/ball.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <main>
+        <div id="index">
+            <h1>PONG</h1>   
+            <button id="startButton">Jugar</button>
+        </div>
+        <div id="game">
+            <h1>PONG</h1>
+            <svg id="area" width="1000" height="1000" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid black;">
+                </svg>
+            <svg id="svg">
+                <text y="65" id="c1">0</text>
+                <text y="65" id="line">0</text>
+                <text y="65" id="c2">0</text>
+                <circle id="ball" r="10" fill="white"></circle>
+                <rect id="p1"></rect>
+                <rect id="p2"></rect>
+                <rect id="g1"></rect>
+                <rect id="g2"></rect>
+            </svg>
+        </div>
+    </main>
+    
+</body>
+</html>

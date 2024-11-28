@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+:root{
+    --primary:#106310;
+}
+*{
+    font-family: "Press Start 2P";
+}
+body{
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+main{
+    flex-grow: 1;
+    width: 100%;
+}
+#index{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+
+    color: white;
+}
+#index button{
+    margin-top: 3rem;
+    padding: 2rem;
+    font-size: large;
+}
+#game{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 95vh;
+    color: white;
+}
+svg{
+    border: 1px solid white;
+    width: 70%;
+    height: 80%;
+}
+#p1, #p2{
+    width: 20px;
+    height: 100px;
+    fill: white;
+}
+#g1, #g2{
+    width: 10px;
+    height: 300px;
+    fill: red;
+}
+#c1,#c2, #line, #mid{
+    font-size: 2em;
+    fill: white;
+}
+#mid{
+    transform: rotateX('90');
+}
+#alert{
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    width: 80%;
+    position: absolute;
+}
+#alert button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+#alert button img{
+    width: 30px;
+    height: 30px;
+}
+

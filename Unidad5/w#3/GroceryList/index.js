@@ -21,11 +21,14 @@ function addGroceryItem(itemName) {
         </span>
     `;
     groceryList.appendChild(listItem);
+    saveList(listItem);
+
 }
 
 function clearItems() {
     const groceryList = document.getElementById('grocery-list');
     groceryList.innerHTML = '';
+
 }
 
 document.getElementById('clear-btn').addEventListener('click', clearItems);
@@ -33,6 +36,7 @@ document.getElementById('clear-btn').addEventListener('click', clearItems);
 function deleteItem(button) {
     const item = button.parentElement.parentElement;
     item.remove();
+
 }
 
 function editItem(button) {
@@ -42,4 +46,9 @@ function editItem(button) {
     if (newItemName) {
         item.firstChild.textContent = newItemName;
     }
+}
+
+function saveList() {
+    localStorage.setItem('groceryList', JSON.stringify(groceryList.innerHTML));
+   
 }
