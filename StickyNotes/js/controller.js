@@ -6,10 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         View.updateTime(Model.notes);
     }
 
-//CAMBIAR VISTA
-    document.getElementById("toggle-view").addEventListener("click", () => {
-        container.classList.toggle("grid-view");
-    });
+
 //AÑADE NOTAS
     document.getElementById("add-note").addEventListener("click", () => {
         const title = prompt("Título de la nota:");

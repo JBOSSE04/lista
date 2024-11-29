@@ -1,87 +1,125 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+/* Reset y estilos generales */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
-h1, h2 {
+body {
+    font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Estilos del encabezado */
+h1 {
+    font-size: 3rem;
     text-align: center;
+    margin: 2rem 0;
+    color: #e50914;
 }
 
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+    
+}
+
+/* Estilos de la sección de búsqueda */
 #landingPage {
-    padding: 20px;
-    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .search-selection {
-    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .search-container {
-    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
-input {
+#input {
+    width: 60%;
     padding: 10px;
-    font-size: 16px;
-    width: 50%;
-    margin-right: 10px;
-    border: 1px solid #ccc;
+    font-size: 1rem;
+    border: none;
     border-radius: 4px;
 }
 
 button {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 1rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: 5px;
+    transition: background-color 0.3s ease;
 }
 
-button.opcionBusqueda {
-    background-color: #007bff;
+.opcionBusqueda {
+    background-color: #e50914;
     color: white;
 }
 
-button#crearInforme {
-    background-color: #28a745;
+#crearInforme {
+    background-color: #0071eb;
     color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Estilos de la lista de películas/series */
+#resultados {
+    margin-top: 2rem;
 }
 
 #listaPeliculas {
-    display: flex;
-    flex-wrap: wrap;
-    /* justify-content: center; */
-    gap: 20px;
-    margin: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
 }
 
 .pelicula {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 160px; /* Ajustado para 5 columnas */
-    cursor: pointer;
     text-align: center;
 }
 
 .pelicula img {
-    width: 300px;  /* Tamaño de imagen ajustado */
-    height: 450px; /* Tamaño de imagen ajustado */
+    width: 100%;
+    height: 600px;
     object-fit: cover;
-    border: 1px solid #ddd;
     border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.pelicula img:hover {
+    transform: scale(1.05);
 }
 
 .pelicula p {
-    font-size: 14px;
-    margin-top: 10px;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
 }
 
-/* Modales */
+/* Estilos para los modales */
 .modal {
     display: none;
     position: fixed;
@@ -89,19 +127,18 @@ button#crearInforme {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1000;
+    overflow-y: auto;
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
+    background-color: #181818;
+    margin: 5% auto;
+    padding: 2rem;
     border-radius: 5px;
-    max-width: 500px;
+    max-width: 600px;
     width: 90%;
-    text-align: center;
     position: relative;
 }
 
@@ -109,13 +146,82 @@ button#crearInforme {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: transparent;
+    font-size: 1.5rem;
+    color: #ffffff;
+    background: none;
     border: none;
-    font-size: 20px;
     cursor: pointer;
 }
 
-/* Mostrar Modales */
-.modal:not(.hidden) {
+/* Utilidades */
+.hidden {
+    display: none;
+}
+
+/*Modal detalla*/
+#detalleModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+#detalleModal .modal-content {
+    background-color: #181818;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 5px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    color: white;
+}
+
+#detalleModal .cerrar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #ffffff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#detalleModal img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+#detalleModal h2 {
+    margin-bottom: 1rem;
+}
+
+#detalleModal p {
+    margin-bottom: 0.5rem;
+}
+
+#detalleModal:not(.hidden) {
     display: flex;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    #input {
+        width: 80%;
+    }
+
+    #listaPeliculas {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
 }

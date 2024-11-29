@@ -6,13 +6,12 @@ window.onload = () => {
     const cerrarInforme = document.getElementById("cerrarInforme");
     const crearInforme = document.getElementById("crearInforme");
 
-    let tipoBusqueda = "movie"; // Por defecto, buscar películas
+    let tipoBusqueda = "movie";  
     let pagina = 1;
     let textoBusqueda = "";
     let resultadosTotales = [];
 
-    // Función para manejar la búsqueda de películas o series
-    buscarPeliculas.addEventListener("click", () => {
+     buscarPeliculas.addEventListener("click", () => {
         tipoBusqueda = "movie";
         document.querySelector(".search-container").classList.remove("hidden");
         realizarBusqueda();
@@ -33,21 +32,17 @@ window.onload = () => {
         }
     });
 
-    // Cerrar el modal de detalles
-    cerrarModal.addEventListener("click", () => {
+     cerrarModal.addEventListener("click", () => {
         document.getElementById("detalleModal").classList.add("hidden");
     });
 
-    // Cerrar el modal de informe
-    cerrarInforme.addEventListener("click", () => {
+     cerrarInforme.addEventListener("click", () => {
         document.getElementById("informeModal").classList.add("hidden");
     });
 
-    // Crear el informe
-    crearInforme.addEventListener("click", generarInforme);
+     crearInforme.addEventListener("click", generarInforme);
 
-    // Función que realiza la búsqueda
-    function realizarBusqueda() {
+     function realizarBusqueda() {
         const url = `https://www.omdbapi.com/?apikey=35a3c92a&s=${textoBusqueda}&type=${tipoBusqueda}&page=${pagina}`;
         pagina++;
 
@@ -56,7 +51,7 @@ window.onload = () => {
             .then((data) => {
                 if (data.Search) {
                     const listaPeliculas = document.getElementById("listaPeliculas");
-                    listaPeliculas.innerHTML = ""; // Limpiar resultados previos
+                    // listaPeliculas.innerHTML = "";  
                     data.Search.forEach((item) => {
                         resultadosTotales.push(item);
 
@@ -64,8 +59,11 @@ window.onload = () => {
                         div.className = "pelicula";
 
                         const img = document.createElement("img");
-                        img.src = item.Poster !== "N/A" ? item.Poster : "placeholder.jpg";
+                        img.src = item.Poster !== "N/A" ? item.Poster : "nofoto.avif";
                         img.alt = item.Title;
+
+                        
+                      
 
                         img.addEventListener("click", () => mostrarDetalle(item.imdbID));
 
@@ -80,18 +78,20 @@ window.onload = () => {
                     document.getElementById("resultados").classList.remove("hidden");
                     crearInforme.classList.remove("hidden");
 
-                    // Implementar scroll infinito
-                    window.addEventListener("scroll", () => {
-                        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-                            realizarBusqueda(); // Cargar más resultados al llegar al final
-                        }
-                    });
+                    //  window.addEventListener("scroll", () => {
+                    //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                    //         realizarBusqueda();  
+                    //     }
+                    // });
+
+
+
+
                 }
             });
     }
 
-    // Función para mostrar los detalles de la película
-    function mostrarDetalle(id) {
+     function mostrarDetalle(id) {
         const url = `https://www.omdbapi.com/?apikey=35a3c92a&i=${id}`;
         fetch(url)
             .then((response) => response.json())
@@ -100,6 +100,7 @@ window.onload = () => {
                 document.getElementById("anioDetalle").textContent = data.Year;
                 document.getElementById("directorDetalle").textContent = data.Director;
                 document.getElementById("actoresDetalle").textContent = data.Actors;
+                
                 document.getElementById("sinopsisDetalle").textContent = data.Plot;
 
                 const ratingsContainer = document.getElementById("ratingsDetalle");
@@ -114,8 +115,7 @@ window.onload = () => {
             });
     }
 
-    // Función para generar el informe
-    function generarInforme() {
+     function generarInforme() {
         const sortedMovies = resultadosTotales.sort((a, b) => b.imdbRating - a.imdbRating).slice(0, 5);
 
         const canvas = document.getElementById("graficoInforme");
@@ -147,7 +147,7 @@ window.onload = () => {
         });
 
         const listaInforme = document.getElementById("listaInforme");
-        listaInforme.innerHTML = ""; // Limpiar lista previa
+        listaInforme.innerHTML = ""; 
         sortedMovies.forEach(movie => {
             const li = document.createElement("li");
             li.textContent = `${movie.Title} - IMDb Rating: ${movie.imdbRating}`;
