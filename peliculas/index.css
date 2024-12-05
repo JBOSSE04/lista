@@ -207,17 +207,21 @@ h1 {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1000;
     overflow-y: auto;
+    background-color: #181818;
+
 }
 
 .modal-content {
-    background-color: #181818;
     margin: 5% auto;
     padding: 2rem;
     border-radius: 5px;
     max-width: 600px;
     width: 90%;
+    height: auto;   
     position: relative;
     color: white;
+    background-color: #181818;
+
 }
 
 .cerrar {
@@ -240,25 +244,32 @@ h1 {
 
 #detalleModal h2 {
     margin-bottom: 1rem;
+    background-color: #181818;
 }
 
 #detalleModal p {
     margin-bottom: 0.5rem;
+    background-color: #181818;
+
 }
 
 /* Estilos para el modal de informe */
 #informeModal .modal-content {
     max-width: 800px;
+
+
 }
 
 #imagenDetalle{
-    align-self: center;    
+    align-self: center;padding-left: 8rem;
+
 }
 
 #graficoInforme {
-    width: 100%;
-    height: 400px;
+    width: 100%; height: 400px;
     margin-bottom: 1rem;
+    background-color: #181818;
+    color: #ffffff;
 }
 
 #listaInforme {

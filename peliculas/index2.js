@@ -106,13 +106,13 @@ window.onload = () => {
                 isLoading = false;
             })
             .finally(() => {
-                document.getElementById("loader").classList.add("hidden"); // Ocultar loader
+                document.getElementById("loader").classList.add("hidden"); 
             });
     }
     
 
     function mostrarDetalle(id) {
-        document.getElementById("loader").classList.remove("hidden"); // Mostrar loader
+        document.getElementById("loader").classList.remove("hidden"); 
     
         const url = `https://www.omdbapi.com/?apikey=35a3c92a&i=${id}`;
         fetch(url)
@@ -140,44 +140,54 @@ window.onload = () => {
             });
     }
     
-    function generarInforme() {
-
-
-
-
-// Ordenar y seleccionar las mejores películas
-        const sortedMovies = resultadosTotales.sort((a, b) => parseFloat(b.imdbRating || 0) - parseFloat(a.imdbRating || 0)).slice(0, 5);
-
-            google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
+ 
+      
+    
+        function generarInforme() {
+            // Obtener ratings detallados para cada película/serie
+            const promesas = resultadosTotales.map(item => 
+                fetch(`https://www.omdbapi.com/?apikey=35a3c92a&i=${item.imdbID}`)
+                    .then(response => response.json())
+            );
+    
+            Promise.all(promesas).then(resultados => {
+                const itemsConRating = resultados.filter(item => item.imdbRating && item.imdbRating !== "N/A");
+                const sortedItems = itemsConRating.sort((a, b) => parseFloat(b.imdbRating) - parseFloat(a.imdbRating)).slice(0, 5);
+    
+                // Crear grafico
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(() => drawChart(sortedItems));
+    
+                // Listar las mejores películas/series en el informe
+                const listaInforme = document.getElementById("listaInforme");
+                listaInforme.innerHTML = ""; 
+                sortedItems.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = `${item.Title} (${item.Year}) - IMDb Rating: ${item.imdbRating}`;
+                    listaInforme.appendChild(li);
+                });
+    
+                document.getElementById("informeModal").classList.remove("hidden");
+            });
+        }
+    
+        function drawChart(items) {
             const dataTable = new google.visualization.DataTable();
             dataTable.addColumn('string', 'Title');
             dataTable.addColumn('number', 'IMDb Rating');
             
-            sortedMovies.forEach(movie => {
-                dataTable.addRow([movie.Title, parseFloat(movie.imdbRating || 0)]);
+            items.forEach(item => {
+                dataTable.addRow([`${item.Title} (${item.Year})`, parseFloat(item.imdbRating)]);
             });
-
+    
             const options = {
-                title: 'Las mejores películas',
-                pieHole: 0.4,
+                title: `Top 5 ${tipoBusqueda === 'movie' ? 'Películas' : 'Series'} Más Valoradas`,
+                bar: { groupWidth: '95%' },
+                legend: { position: 'none' },
             };
-
-            const chart = new google.visualization.PieChart(document.getElementById('graficoInforme'));
+    
+            const chart = new google.visualization.BarChart(document.getElementById('graficoInforme'));
             chart.draw(dataTable, options);
         }
-
-        // Listar las mejores películas
-        const listaInforme = document.getElementById("listaInforme");
-        listaInforme.innerHTML = ""; 
-        sortedMovies.forEach(movie => {
-            const li = document.createElement("li");
-            li.textContent = `${movie.Title} - IMDb Rating: ${movie.imdbRating}`;
-            listaInforme.appendChild(li);
-        });
-
-        document.getElementById("informeModal").classList.remove("hidden");
-    }
+    
 };
