@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.min.js"></script>
+    <title>Grocery List with Vue.js</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f1f5f8;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 600px;
+            text-align: left;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            color: #5a5a5a;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        input {
+            width: 75%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select {
+            margin-left: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            padding: 0.5rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 1rem;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .priority {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .priority.low {
+            background-color: #2ecc71;
+        }
+
+        .priority.normal {
+            background-color: #f1c40f;
+        }
+
+        .priority.high {
+            background-color: #e74c3c;
+        }
+
+        .delete-btn, .status-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        p {
+            margin-top: 1rem;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>MI LISTA</h1>   
+        <form @submit.prevent="addTask">
+            <input v-model="newTask" placeholder="Add a new task" required>
+            <select v-model="newPriority">
+                <option value="low">bajo</option>
+                <option value="normal">normal</option>
+                <option value="high">alto</option>
+            </select>
+            <button type="submit" class="submit-btn">Añadir</button>
+        </form>
+        <ul>
+            <li v-for="(task, index) in sortedTasks" :key="index" :class="{ completed: task.completed }">
+                <button class="status-btn" @click="toggleStatus(index)">⬤</button>
+                <span>{{ task.text }}</span>
+                <span :class="['priority', task.priority]">{{ task.priority }}</span>
+                <button class="delete-btn" @click="deleteTask(index)">🗑️</button>
+            </li>
+        </ul>
+        <button class="clear-btn" @click="clearItems">Borrar todo</button>
+        <p>{{ total }} pendientes("No las dejes para mañana").</p>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {1
+                return {
+                    newTask: '',
+                    newPriority: 'normal',
+                    tasks: []
+                };
+            },
+            computed: {
+                sortedTasks() {
+                    const priorityOrder = { high: 1, normal: 2, low: 3 };
+                    return [...this.tasks].sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+                },
+                total() {
+                    return this.tasks.length;
+                },
+                pendientes() {
+                    return this.tasks.filter(task => !task.completed).length;
+                }
+            },
+            methods: {
+                addTask() {
+                    const task = {
+                        text: this.newTask.trim(),
+                        priority: this.newPriority,
+                        completed: false,
+                        createdAt: new Date()
+                    };
+                    this.tasks.push(task);
+                    this.newTask = '';
+                    this.newPriority = 'normal';
+                    this.saveTasks();
+                },
+                toggleStatus(index) {
+                    this.tasks[index].completed = !this.tasks[index].completed;
+                    this.saveTasks();
+                },
+                deleteTask(index) {
+                    this.tasks.splice(index, 1);
+                    this.saveTasks();
+                },
+                clearItems() {
+                    
+                    this.tasks = [];
+                    this.saveTasks();
+                },
+                saveTasks() {
+                    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+                },
+               
+                loadTasks() {
+                    const savedTasks = localStorage.getItem('tasks');
+                    if (savedTasks) {
+                        this.tasks = JSON.parse(savedTasks);
+                    }
+                }
+            },
+            created() {
+                this.loadTasks();
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

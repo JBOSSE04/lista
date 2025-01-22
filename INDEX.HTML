@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <title>Tienda - Registro e Inicio de Sesión</title>
+</head>
+<body>
+    <h1>Tienda</h1>
+
+    <!-- Formulario de Registro -->
+    <h2>Registro</h2>
+    <form id="register-form">
+        <input type="text" name="username" placeholder="Nombre de usuario" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Registrarse</button>
+    </form>
+
+    <!-- Formulario de Inicio de Sesión -->
+    <h2>Inicio de Sesión</h2>
+    <form id="login-form">
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <script>
+        // Inicializa EmailJS
+        (function() {
+            emailjs.init("AgeZvTS7ha2Q0AHWz"); // Reemplaza con tu User ID de EmailJS
+        })();
+
+        // Registro
+        const registerForm = document.getElementById("register-form");
+        registerForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita el envío predeterminado del formulario
+
+            const formData = new FormData(registerForm);
+            const templateParams = {
+                username: formData.get("username"),
+                email: formData.get("email"),
+            };
+
+            emailjs.send("service_dvjlpx2", "template_1njafyc", templateParams)
+                .then(response => {
+                    alert("Registro exitoso. Se ha enviado un correo de bienvenida.");
+                    console.log("Éxito:", response);
+                })
+                .catch(error => {
+                    alert("Error al enviar el correo de registro.");
+                    console.error("Error:", error);
+                });
+        });
+
+        // Inicio de Sesión
+        const loginForm = document.getElementById("login-form");
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita el envío predeterminado del formulario
+
+            const formData = new FormData(loginForm);
+            const templateParams = {
+                email: formData.get("email"),
+            };
+
+            emailjs.send("service_dvjlpx2", "template_1njafyc", templateParams)
+                .then(response => {
+                    alert("Inicio de sesión exitoso. Se ha enviado un correo de confirmación.");
+                    console.log("Éxito:", response);
+                })
+                .catch(error => {
+                    alert("Error al enviar el correo de inicio de sesión.");
+                    console.error("Error:", error);
+                });
+        });
+    </script>
+</body>
+</html>
