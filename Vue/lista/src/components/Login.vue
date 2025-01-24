@@ -81,12 +81,13 @@
   const confirmPassword = ref("");
   const errorMessage = ref("");
   
-  // Métodos de autenticación
+  // metodos de autenticación
   async function loginWithEmail() {
     try {
       await signInWithEmailAndPassword(auth, email.value, password.value);
       console.log("Inicio de sesión exitoso");
-      router.push("/recordatorios"); // Redirige después de iniciar sesión
+      // redirige despuas de iniciar sesion
+      router.push("/recordatorios"); 
     } catch (error) {
       errorMessage.value = "Error al iniciar sesión: " + error.message;
       console.error("Error al iniciar sesión:", error);
@@ -102,7 +103,7 @@
     try {
       await createUserWithEmailAndPassword(auth, email.value, password.value);
       console.log("Usuario registrado exitosamente");
-      router.push("/recordatorios"); // Redirige después de registrarse
+      router.push("/recordatorios");
     } catch (error) {
       errorMessage.value = "Error al registrar usuario: " + error.message;
       console.error("Error al registrar usuario:", error);
@@ -113,7 +114,7 @@
     try {
       await signInWithPopup(auth, googleAuthProvider);
       console.log("Inicio de sesión con Google exitoso");
-      router.push("/recordatorios"); // Redirige después de iniciar sesión
+      router.push("/recordatorios");
     } catch (error) {
       errorMessage.value = "Error al iniciar sesión con Google: " + error.message;
       console.error("Error al iniciar sesión con Google:", error);
@@ -124,7 +125,7 @@
     try {
       await signInWithPopup(auth, githubAuthProvider);
       console.log("Inicio de sesión con GitHub exitoso");
-      router.push("/recordatorios"); // Redirige después de iniciar sesión
+      router.push("/recordatorios"); 
     } catch (error) {
       errorMessage.value = "Error al iniciar sesión con GitHub: " + error.message;
       console.error("Error al iniciar sesión con GitHub:", error);
@@ -134,7 +135,7 @@
   async function cerrarSesion() {
     try {
       await signOut(auth);
-      router.push("/"); // Redirige al cerrar sesión
+      router.push("/"); 
       console.log("Sesión cerrada correctamente");
     } catch (error) {
       errorMessage.value = "Error al cerrar sesión: " + error.message;

@@ -16,7 +16,7 @@ import { defineProps } from "vue";
 import Tarea from "./tarea.vue";
 
 const props = defineProps({
-  tasks: Array, // Las tareas se pasan como un prop
+  tasks: Array, // las tareas se pasan como un prop
 });
 </script>
 
