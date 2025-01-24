@@ -2,7 +2,7 @@ import React from 'react';
 
 function Joke({ setup, punchline }) {
   return (
-    <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', borderRadius: '5px', textAlign: 'left', maxWidth: '400px', marginLeft: 'auto', marginRight: 'auto' }}>
+    <div>
       <p><strong>{setup}</strong></p>
       <p>{punchline}</p>
     </div>
