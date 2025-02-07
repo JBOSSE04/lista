@@ -28,7 +28,8 @@ const db = useFirestore();
 const user = useCurrentUser();
 
 const tasks = ref([]);
-let tasksQuery = null;
+let tasksQuery =null;
+// const tasksQuery = useCollection(query(collection(db, 'Recordatorios'), where('idUsuario', '==', user.value.uid), orderBy('nombre')));
 
 // monitorear cambios en el usuario autenticado
 watch(
@@ -66,6 +67,9 @@ watch(
   },
   { immediate: true }
 );
+
+//funcion para ordenar por nombre
+
 
 // agregar una nueva tarea
 async function addTask(newTask) {
@@ -112,20 +116,32 @@ async function deleteTask(task) {
     console.error("Error al eliminar tarea:", error);
   }
 }
-//borra la tarea/s ya completadas
-async function clearCompleted() {
-  try {
-    // filtrar las tareas completadas
-    const completedTasks = tasks.value.filter((task) => task.completed);
+// //borra la tarea/s ya completadas
+// async function clearCompleted() {
+//   try {
+//     // filtrar las tareas completadas
+//     const completedTasks = tasks.value.filter((task) => task.completed);
 
-    // elimina cada tarea completada de Firestore
-    for (const task of completedTasks) {
-      if (task.id) {
-        const taskDoc = doc(db, "lista", task.id);
-        await deleteDoc(taskDoc);
+//     // elimina cada tarea completada de Firestore
+//     for (const task of completedTasks) {
+//       if (task.id) {
+//         const taskDoc = doc(db, "lista", task.id);
+//         await deleteDoc(taskDoc);
+//       }
+//     }
+
+
+
+  async function clearCompleted() {
+    try {
+      const highPriorityTasks = tasks.value.filter((task) => task.priority === "high");
+
+      for (const task of highPriorityTasks) {
+        if (task.id) {
+          const taskDoc = doc(db, "lista", task.id);
+          await deleteDoc(taskDoc);
+        }
       }
-    }
-
     // actu estado local eliminando las completadas
     tasks.value = tasks.value.filter((task) => !task.completed);
   } catch (error) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 function CustomButton({ onClick, children }) {
   return (
-    <button onClick={onClick} style={{ margin: '10px', padding: '10px 20px', fontSize: '16px' }}>
+    <button onClick={onClick}>
       {children}
     </button>
   );
@@ -14,7 +14,7 @@ function CustomComponent() {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div>
       <CustomButton onClick={() => handleButtonClick('Button 1')}>Button 1</CustomButton>
       <CustomButton onClick={() => handleButtonClick('Button 2')}>Button 2</CustomButton>
       <CustomButton onClick={() => handleButtonClick('Button 3')}>Button 3</CustomButton>

@@ -50,7 +50,7 @@ header {
 
 h1 {
   font-size: 24px;
-  color: #d4d4d4;
+  color: #3b3b3b;
 }
 
 .task-input {
@@ -68,7 +68,7 @@ input {
 }
 
 p {
-  color: #ddd;
+  color: #5a5a5a;
 }
 
 .clear {

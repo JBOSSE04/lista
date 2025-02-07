@@ -34,13 +34,13 @@
           <input
             v-model="email"
             type="email"
-            placeholder="Correo electrónico"
+            placeholder="Correo electrónico registro"
             required
           />
           <input
             v-model="password"
             type="password"
-            placeholder="Contraseña"
+            placeholder="Contraseña registro"
             required
           />
           <input
